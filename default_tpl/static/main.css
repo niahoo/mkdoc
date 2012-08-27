@@ -1,0 +1,176 @@
+body {
+    background:url('img/retina_dust.png') #ddd;
+}
+
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+
+/** LAYOUTS **/
+
+.global {
+    width:960px;
+    margin:10px auto;
+    background:white;
+    border-radius:3px;
+    box-shadow:1px 1px 5px 1px #aaa;
+}
+
+#global {
+}
+/** -- colonnes **/
+#sidebar {
+    width:300px;
+    margin:0 10px;
+    float:left;
+}
+
+#main-content {
+    width:620px;
+    margin:0 10px;
+    float:left;
+}
+
+article {
+    padding:1em;
+}
+
+nav a {
+    display:block;
+}
+
+* {
+    vertical-align:middle;
+}
+
+/** ARTICLES TYPOGRAPHY **/
+
+body {
+    line-height: 21px;
+    font-size:16px;
+    /*font-family: 'Deja Vu Sans', 'Helvetica', Arial, sans-serif;*/
+    font-family: 'Source Sans Pro', sans-serif;
+    color:#444;
+}
+
+h1 {
+    font-size:36px;
+    line-height: 63px;
+    font-weight: normal;
+    margin-bottom:21px;
+    background:url('img/bg-grid.png');
+}
+h2 {
+    font-size:30px;
+    line-height: 42px;
+    font-weight: normal;
+    margin-bottom:21px;
+}
+h3 {
+    font-weight: bold;
+    margin-bottom:21px;
+}
+h4 {
+    font-weight: bold;
+}
+h5 {
+    font-weight: bold;
+}
+h6 {
+    font-weight: bold;
+}
+p {
+    margin-bottom:21px;
+    text-align: justify;
+    text-indent: 1em;
+}
+a {
+    color:#a44;
+}
+
+
+#sidebar-inner {
+    padding:1em;
+    border-radius: 3px;
+
+    padding-top:39px;
+    /*background: #efefef;*/
+}
+#sidebar ul {
+
+}
+#sidebar ul li {
+
+    padding:1px;
+    font-size: 15px;
+    list-style:none outside none;
+    color:#a44;
+    margin-bottom:4px;
+    line-height:21px;
+}
+
+#sidebar ul li.section {
+    font-size:17px;
+    font-weight:bold;
+    color:#444;
+    list-style:none outside none;
+    margin-top:21px;
+}
+#sidebar ul li.section:first-child {
+    margin-top:0;
+}
+
+#sidebar a {
+    text-decoration: none;
+    display:block;
+    padding:3px;
+}
+#sidebar a.current:link ,
+#sidebar a.current:visited ,
+#sidebar a.current:focus ,
+#sidebar a.current:hover ,
+#sidebar a.current:active {
+    /*background-color:#a44;*/
+    color:#555;
+
+}
+
+#sidebar a:link, #sidebar a:visited {
+    color:#a44;
+}
+
+#sidebar a:focus, #sidebar a:hover, #sidebar a:active {
+    text-decoration: underline;
+}
+
+#sidebar a::before {
+}
+
+
+#footer-info {
+    margin:10px 10px;
+    text-align:right;
+
+    background:url('img/bg-grid.png');
+    padding:0 1em;
+    color:#666;
+}
+
+
+body {
+    padding-bottom:300px;
+}

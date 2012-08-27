@@ -1,0 +1,15 @@
+{% set cur_path = '' %}
+<ul>
+{% for page in pages %}
+    {% if cur_path != page.path %}
+        {% set cur_path = page.path %}
+        <li class="section">{{ cur_path }}</li>
+    {% endif %}
+
+    {% if cur_page.id != page.id %}
+        <li><a href="{{ cur_page.to_root }}{{ page.rel_url }}">{{ page.title }}</a></li>
+    {% else %}
+        <li><a class="current" href="{{ cur_page.to_root }}{{ page.rel_url }}">{{ page.title }}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>
