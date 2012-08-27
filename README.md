@@ -11,11 +11,12 @@ Installation
 - Python 2.6 +
 - Jinja2
 
-
 To install Jinja2, please run one of the following commands as root
 
     easy_install Jinja2
     pip install Jinja2
+
+### Clone & Install
 
 Now clone this repository
 
