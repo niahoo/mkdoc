@@ -42,3 +42,5 @@ Go into /home/wiki, launch mkdoc:
 
 Now you should have a directory containing the generated HTML files:
 /home/wiki/www
+
+
