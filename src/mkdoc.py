@@ -26,6 +26,7 @@ class Mkdoc:
         self.out_dir = realpath(out_dir)
         self._exts = ['.*']
         self.recomp()
+        print "Mkdoc root dir : %s" % Mkdoc.mkdoc_dir
 ## -------------------------------------------------------------------
     def set_exts(self, exts):
         self._exts = exts
@@ -235,8 +236,6 @@ if __name__ == '__main__':
     ## Get Opts
 
     cur_dir = os.path.dirname(os.getcwd())
-    mkdoc_dir = dirname(dirname(realpath(sys.argv[0])))
-    
 
     opts, args = getopt(sys.argv[1:], 't:')
     def opt_val(ak,default=None):
