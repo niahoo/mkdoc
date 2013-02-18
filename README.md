@@ -10,6 +10,7 @@ Installation
 
 - Python 2.6 +
 - Jinja2
+- Python Markdown ([PyPI](http://pypi.python.org/pypi/Markdown))
 
 To install Jinja2, please run one of the following commands as root
 

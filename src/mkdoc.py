@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 
-import sys, os, re, datetime, distutils.dir_util, codecs
+import sys, os, re, datetime, distutils.dir_util, codecs, markdown
 from os.path import realpath, isdir, basename, isfile, dirname
 from HTMLParser import HTMLParser
 from jinja2 import Template
@@ -51,7 +51,7 @@ class Mkdoc:
         pages = []
 
         for mdf in md_files:
-            print "loading file %s" % mdf.filename
+            # print "loading file %s" % mdf.filename
             pages.append(mdf.get_page())
 
         # Écriture des fichiers
@@ -87,7 +87,8 @@ class Mkdoc:
                                     'pub_infos':pub_infos,
                                     'out_dir':self.out_dir})
 
-            target_path = os.path.join(self.out_dir, page['rel_url'].strip('/'))
+            # la flemme d'utiliser os.path.join sur windows donc on concatene
+            target_path = self.out_dir + os.sep + page['rel_url'].strip('/')
             if not isdir(dirname(target_path)):
                 os.makedirs(dirname(target_path))
             tgf = codecs.open(target_path, "w", "utf-8")
@@ -112,7 +113,7 @@ class Mkdoc:
 
 ## -------------------------------------------------------------------
     def get_md_files(self, dirname, level=0):
-        print "Fetching md files from %s" % dirname
+        # print "Fetching md files from %s" % dirname
         md_files = []
         for f in os.listdir(dirname):
             it = os.path.join(dirname,f)
@@ -163,8 +164,9 @@ class MDFile:
 
 
     def to_html(self):
-        pl = os.path.join(Mkdoc.mkdoc_dir, 'bin/Markdown_1.0.1/Markdown.pl')
-        html = os.popen("%s %s" % (pl, self.filename)).read().decode('utf8')
+        input_file = codecs.open(self.filename, mode="r", encoding="utf-8")
+        text = input_file.read()
+        html = markdown.markdown(text)
         return html
 
     def switch_ext(self, filename):
