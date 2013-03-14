@@ -12,10 +12,15 @@ Installation
 - Jinja2
 - Python Markdown ([PyPI](http://pypi.python.org/pypi/Markdown))
 
-To install Jinja2, please run one of the following commands as root
+To install Jinja2, please run one of the following commands as root :
 
     easy_install Jinja2
     pip install Jinja2
+
+To install Markdown, please run one of the following commands as root :
+
+    easy_install markdown
+    pip install markdown
 
 ### Clone & Install
 
@@ -26,7 +31,7 @@ Now clone this repository
 
 Then add in your path a symlink to mkdoc.py
 
-    ln src/mkdoc.py /home/$USER/bin/mkdoc
+    ln -s src/mkdoc.py /home/$USER/bin/mkdoc
 
 Using
 -----
@@ -45,3 +50,15 @@ Now you should have a directory containing the generated HTML files:
 /home/wiki/www
 
 
+Troubleshooting
+---------------
+
+As `realpath` doesn't seem to work on MinGW, you must either provide
+the default template path with the -t option or use mkdoc.py instead
+of a symlink.
+
+    mkdoc -t /path/to/mkdoc/default_tpl
+
+    /path/to/mkdoc/src/mkdoc.py
+
+You can also add /path/to/mkdoc/src to your PATH.
