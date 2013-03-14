@@ -1,6 +1,28 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+# Copyright © 2013 Ludovic Demblans
+
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation files
+# (the "Software"), to deal in the Software without restriction,
+# including without limitation the rights to use, copy, modify, merge,
+# publish, distribute, sublicense, and/or sell copies of the Software,
+# and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+
+# The Software is provided "as is", without warranty of any kind,
+# express or implied, including but not limited to the warranties of
+# merchantability, fitness for a particular purpose and
+# noninfringement. In no event shall the authors or copyright holders
+# be liable for any claim, damages or other liability, whether in an
+# action of contract, tort or otherwise, arising from, out of or in
+# connection with the software or the use or other dealings in the
+# Software.
+
 
 import sys, os, re, datetime, distutils.dir_util, codecs, markdown
 from os.path import realpath, isdir, basename, isfile, dirname
@@ -157,7 +179,7 @@ class MDFile:
         return {
             'content': html,
             'title':   title,
-            'path':   path,
+            'path':   path.replace('/',' > ').replace('\\',' > ').strip(' > '),
             'rel_url': rel_url.strip('/'),
             'to_root': self.to_root()
         }
@@ -182,21 +204,33 @@ class MkParser(HTMLParser):
 
     def __init__(self, *args, **kwargs):
         HTMLParser.__init__(self)
-        self.current_tag = ''
-        self.page_title = ''
+        self.recording = False
+        self.fragments = []
 
     def handle_starttag(self, tag, attrs):
-        self.current_tag = tag.lower()
+        ltag = tag.lower()
+        if 'h1' == ltag:
+            self.recording = True
+        elif self.recording:
+            self.fragments.append('<%s>' % ltag)
+
+    def handle_endtag(self, tag):
+        ltag = tag.lower()
+        if 'h1' == ltag:
+            self.recording = False
+        elif self.recording:
+            self.fragments.append('</%s>' % ltag)
 
     def handle_data(self, data):
-        if 'h1' == self.current_tag :
-            self.page_title = self.page_title + data
+        if self.recording:
+            self.fragments.append(data)
 
     def get_page_title(self):
-        if '' == self.page_title:
+        page_title = ''.join(self.fragments)
+        if '' == page_title:
             return 'No Title'
         else:
-            return self.page_title
+            return page_title
 
 
 # instantiate the parser and fed it some HTML

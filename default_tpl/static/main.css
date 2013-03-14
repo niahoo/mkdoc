@@ -20,6 +20,14 @@ body {
     *zoom: 1;
 }
 
+strong {
+    font-weight:bold;
+}
+
+em {
+    font-style: italic;
+}
+
 /** LAYOUTS **/
 
 .global {
