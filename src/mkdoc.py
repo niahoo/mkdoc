@@ -60,24 +60,22 @@ class Mkdoc:
 
         menu_file = os.path.join(self.tpl_dir,'menu.html')
         if not isfile(menu_file):
-            print "missing menu template (%s), skipping" % menu_file
+            print "    missing menu template (%s), skipping" % menu_file
             menu_tpl = MockTpl()
         else:
              menu_tpl = Tpl(menu_file)
 
         tpl_file = os.path.join(self.tpl_dir,'default.html')
-        print "Using template %s" % tpl_file
+        print "    Using template %s" % tpl_file
         tpl = Tpl(tpl_file)
 
         pages = sorted(pages, key=lambda x:x['path'])
 
         pub_infos = self.pub_infos()
-        print pub_infos
         id = 0
         for page in pages:
             page['id'] = id
             id += 1
-            print page['rel_url']
             menu_html = menu_tpl.render({'cur_page':page,
                                          'pages':pages,
                                          'out_dir':self.out_dir})
@@ -94,6 +92,7 @@ class Mkdoc:
             tgf = codecs.open(target_path, "w", "utf-8")
             tgf.write(page_html)
             tgf.close()
+            print "    CREATE %s" % page['rel_url']
             # print page_html
 
         print 'done'
@@ -109,6 +108,7 @@ class Mkdoc:
             if not isdir(static_www):
                 os.makedirs(static_www)
             distutils.dir_util.copy_tree(static_dir, static_www)
+            print 'done'
 
 
 ## -------------------------------------------------------------------
@@ -121,7 +121,7 @@ class Mkdoc:
                 md_files.append(MDFile(it, self.src_dir, level))
             elif isdir(it):
                 md_files.extend(self.get_md_files(it, level+1))
-        if level == 0: print 'ok'
+        if level == 0: print 'All sources collected'
         return md_files
 ## -------------------------------------------------------------------
     def accepts(self, filename):
@@ -152,7 +152,7 @@ class MDFile:
         parser = MkParser()
         parser.feed(html)
         title = unicode(parser.get_page_title().strip())
-        rel_url = self.switch_ext(self.filename.replace(self.root, ''))
+        rel_url = self.switch_ext(self.filename.replace(self.root, '').replace('\\', '/'))
         path = dirname(self.filename.replace(self.root, ''))
         return {
             'content': html,
@@ -242,7 +242,6 @@ if __name__ == '__main__':
     opts, args = getopt(sys.argv[1:], 't:')
     def opt_val(ak,default=None):
         for k, v in opts:
-            print k
             if k == ak:
                 return v
         return default
